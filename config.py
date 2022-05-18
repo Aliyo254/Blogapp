@@ -4,13 +4,11 @@ class Config:
 
     '''
     class config
-
     '''
 
 class ProdConfig(Config):
     '''
     Production  configuration child class
-
     Args:
         Config: The parent configuration class with General configuration settings
     '''
@@ -24,7 +22,6 @@ class TestConfig(Config):
 class DevConfig(Config):
     '''
     Development  configuration child class
-
     Args:
         Config: The parent configuration class with General configuration settings
     '''
