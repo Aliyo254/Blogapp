@@ -1,3 +1,4 @@
+from distutils.debug import DEBUG
 import os
 
 class Config:
@@ -5,6 +6,9 @@ class Config:
     '''
     class config
     '''
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://alinur:admin@localhost/blog'
+    SECRET_KEY=os.environ.get("SECRET_KEY")
+
 
 class ProdConfig(Config):
     '''
@@ -13,7 +17,10 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")
-    SECRET_KEY=os.environ.get("SECRET_KEY")
+    if SQLALCHEMY_DATABASE_URI.startswith('postgres://'): 
+        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace('postgres://','postgresql://',1)
+
+   
 
 
 class TestConfig(Config):
@@ -25,9 +32,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://alinur:admin@localhost/blog'
-    SECRET_KEY=os.environ.get("SECRET_KEY")
-    DEBUG = True
+    DEBUG=True
 
 config_options = {
 'development':DevConfig,
