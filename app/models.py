@@ -27,3 +27,9 @@ class User(UserMixin,db.Model):
         return check_password_hash(self.pass_secure,password)
     def __repr__(self):
         return f'User {self.username}'
+
+class Blog(db.Model):
+    __tablename__='blogs'
+    id=db.Column(db.Integer,primary_key=True)
+    topic=db.Column(db.String(255))
+    blog=db.Column(db.String(255))
