@@ -4,38 +4,34 @@ class Config:
 
     '''
     class config
+
     '''
-    SECRET_KEY=os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://alinur:admin@localhost/blog'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    @staticmethod
-    def init_app(app):
-        pass
-
-
 
 class ProdConfig(Config):
     '''
     Production  configuration child class
+
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    pass
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL")
+    SECRET_KEY=os.environ.get("SECRET_KEY")
+
+
 class TestConfig(Config):
-    '''
-    test configurations
-    '''
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://alinur:admin@localhost/blog_test'
+
 class DevConfig(Config):
     '''
     Development  configuration child class
+
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://alinur:admin@localhost/blog'
+    SECRET_KEY=os.environ.get("SECRET_KEY")
     DEBUG = True
-    pass
+
 config_options = {
 'development':DevConfig,
 'test':TestConfig,
